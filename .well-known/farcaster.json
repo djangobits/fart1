@@ -1,0 +1,17 @@
+{
+  "accountAssociation": {
+    "header": "<BASE64_HEADER>",
+    "payload": "<BASE64_PAYLOAD>",
+    "signature": "<BASE64_SIGNATURE>"
+  },
+  "frame": {
+    "version": "1",
+    "name": "fart1",
+    "iconUrl": "https://via.placeholder.com/200.png?text=fart1",
+    "homeUrl": "https://your-domain.com/index.html",
+    "imageUrl": "https://via.placeholder.com/600x400.png?text=fart1",
+    "buttonTitle": "Open fart1",
+    "splashImageUrl": "https://via.placeholder.com/200.png?text=fart1",
+    "splashBackgroundColor": "#ffffff"
+  }
+}
