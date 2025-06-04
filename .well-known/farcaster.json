@@ -6,12 +6,12 @@
   },
   "frame": {
     "version": "1",
-    "name": "fart1",
-    "iconUrl": "https://via.placeholder.com/icon.png?text=fart1",
-    "homeUrl": "https://your-domain.com/index.html",
-    "imageUrl": "https://via.placeholder.com/og-image.png?text=fart1",
+    "name": "Farcaster Art Generator 1",
+    "iconUrl": "https://fart1.djangobits.xyz/icon.png?text=fart1",
+    "homeUrl": "https://fart1.djangobits.xyz/index.html",
+    "imageUrl": "https://fart1.djangobits.xyz/og-image.png?text=fart1",
     "buttonTitle": "Open fart1",
-    "splashImageUrl": "https://via.placeholder.com/splash.png?text=fart1",
+    "splashImageUrl": "https://fart1.djangobits.xyz/splash.png?text=fart1",
     "splashBackgroundColor": "#ffffff"
   }
 }
