@@ -12,7 +12,7 @@
     If someone shares this URL in Farcaster, the fc:frame tag below
     makes it render as a tappable “Mini App” card with a 3:2 image
     and a button that re‐opens the app.
-    Replace every occurrence of "your-domain.com" with your real domain.
+    Replace every occurrence of "fart1.djangobits.xyz" with your real domain.
   -->
   <meta
     name="fc:frame"
@@ -50,7 +50,18 @@
 <body>
   <canvas id="canvas"></canvas>
 
-  <script>
+  <script type="module">
+    import { sdk } from 'https://esm.sh/@farcaster/frame-sdk';
+
+    // Hide the native Farcaster splash screen as soon as possible
+    (async () => {
+      try {
+        await sdk.actions.ready();
+      } catch {
+        // If not in a Farcaster Mini App, ignore
+      }
+    })();
+
     // ================= Configuration Section =================
     const CONFIG = {
       // Range for number of line pairs to draw each iteration:
@@ -82,7 +93,6 @@
     };
     // ========================================================
 
-    // Small seeded PRNG (mulberry32). Seed is a 32-bit integer
     function mulberry32(a) {
       return function() {
         var t = (a += 0x6D2B79F5);
@@ -102,32 +112,29 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Build a palette of CONFIG.PALETTE_SIZE “beautiful” HSL colors (evenly spaced hues)
     const palette = Array.from({ length: CONFIG.PALETTE_SIZE }, (_, i) => {
       const hue = (i * 360) / CONFIG.PALETTE_SIZE;
       return { h: hue, str: `hsl(${hue}, ${CONFIG.PALETTE_SATURATION}%, ${CONFIG.PALETTE_LIGHTNESS}%)` };
     });
 
     function drawRandomArt() {
-      // 1) Pick a random 32-bit seed and create rand()
       const seed = Math.floor(Math.random() * 0xFFFFFFFF);
       const rand = mulberry32(seed);
 
-      // 2) Pick a background color from palette
+      // Background
       const colorIndex = Math.floor(rand() * CONFIG.PALETTE_SIZE);
       const bgHSL = palette[colorIndex];
       ctx.fillStyle = bgHSL.str;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 2a) Compute opposite (complementary) color in HSL by adding 180° to hue
+      // Opposite color
       const oppositeHue = (bgHSL.h + 180) % 360;
       const oppositeColor = `hsl(${oppositeHue}, ${CONFIG.PALETTE_SATURATION}%, ${CONFIG.PALETTE_LIGHTNESS}%)`;
 
-      // 2b) Pick a random blur amount between MIN_BLUR and MAX_BLUR
+      // Blur
       const blurPx = CONFIG.MIN_BLUR + rand() * (CONFIG.MAX_BLUR - CONFIG.MIN_BLUR);
       canvas.style.filter = `blur(${blurPx}px)`;
 
-      // 3) Determine number of line pairs (between MIN_PAIRS and MAX_PAIRS)
       const numPairs = Math.floor(rand() * (CONFIG.MAX_PAIRS - CONFIG.MIN_PAIRS + 1))
                        + CONFIG.MIN_PAIRS;
 
@@ -137,17 +144,13 @@
       for (let i = 0; i < numPairs; i++) {
         let x0, y0, x1, y1, dx, dy, length, attempts = 0;
 
-        // Attempt to pick endpoints anywhere in canvas with length within range
         do {
-          // a) Random start point anywhere in canvas
           x0 = rand() * canvas.width;
           y0 = rand() * canvas.height;
 
-          // b) Pick random angle (0 to 2π) and length in [MIN_PAIR_LENGTH, MAX_PAIR_LENGTH]
           const angle = rand() * 2 * Math.PI;
           length = CONFIG.MIN_PAIR_LENGTH + rand() * (CONFIG.MAX_PAIR_LENGTH - CONFIG.MIN_PAIR_LENGTH);
 
-          // c) Compute endpoint
           x1 = x0 + Math.cos(angle) * length;
           y1 = y0 + Math.sin(angle) * length;
 
@@ -157,11 +160,8 @@
           attempts < CONFIG.MAX_ENDPOINT_ATTEMPTS
         );
 
-        // If still outside after attempts, clamp endpoint to canvas
         if (x1 < 0 || x1 > canvas.width || y1 < 0 || y1 > canvas.height) {
-          // Recompute clamped endpoint along same angle & length
           const angle = Math.atan2(y1 - y0, x1 - x0);
-          // Find max length to edge
           const tX = angle === 0 ? Infinity : (angle > 0
             ? (canvas.width - x0) / Math.cos(angle)
             : -x0 / Math.cos(angle));
@@ -179,28 +179,21 @@
           dy = y1 - y0;
         }
 
-        // Compute central angle & midpoint
         const angleMid = Math.atan2(dy, dx);
         const midX = (x0 + x1) / 2;
         const midY = (y0 + y1) / 2;
-
-        // Perpendicular direction
         const perpAngle = angleMid + Math.PI / 2;
 
-        // Maximum offset for curvature based on chosen length
         const maxOffset = length * CONFIG.CURVE_OFFSET_RATIO;
-
-        // Primary offset (random in [-maxOffset, +maxOffset])
         const offset1 = (rand() * 2 - 1) * maxOffset;
         const cx1 = midX + Math.cos(perpAngle) * offset1;
         const cy1 = midY + Math.sin(perpAngle) * offset1;
 
-        // Secondary offset: always opposite direction of primary
         const offset2 = -offset1;
         const cx2 = midX + Math.cos(perpAngle) * offset2;
         const cy2 = midY + Math.sin(perpAngle) * offset2;
 
-        // Fill area between the two curves with the opposite color
+        // Fill between curves
         ctx.fillStyle = oppositeColor;
         ctx.beginPath();
         ctx.moveTo(x0, y0);
@@ -209,14 +202,13 @@
         ctx.closePath();
         ctx.fill();
 
-        // Draw primary curve
+        // Draw curves
         ctx.strokeStyle = '#000000';
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.quadraticCurveTo(cx1, cy1, x1, y1);
         ctx.stroke();
 
-        // Draw secondary (opposite) curve
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.quadraticCurveTo(cx2, cy2, x1, y1);
@@ -224,10 +216,7 @@
       }
     }
 
-    // Regenerate on click
     window.addEventListener('click', drawRandomArt);
-
-    // Initial draw
     drawRandomArt();
   </script>
 </body>
