@@ -7,11 +7,11 @@
   "frame": {
     "version": "1",
     "name": "fart1",
-    "iconUrl": "https://via.placeholder.com/assets/icon.png?text=fart1",
+    "iconUrl": "https://via.placeholder.com/icon.png?text=fart1",
     "homeUrl": "https://your-domain.com/index.html",
-    "imageUrl": "https://via.placeholder.com/assets/og-image.png?text=fart1",
+    "imageUrl": "https://via.placeholder.com/og-image.png?text=fart1",
     "buttonTitle": "Open fart1",
-    "splashImageUrl": "https://via.placeholder.com/assets/splash.png?text=fart1",
+    "splashImageUrl": "https://via.placeholder.com/splash.png?text=fart1",
     "splashBackgroundColor": "#ffffff"
   }
 }
