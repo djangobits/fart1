@@ -18,6 +18,11 @@
       "generative",
       "art",
       "toy"
-    ]
+    ],
+    "heroImageUrl": "https://fart1.djangobits.xyz/hero.png",
+    "tagline": "FART1",
+    "ogTitle": "FART1",
+    "ogDescription": "Farcaster Art Generator 1",
+    "ogImageUrl": "https://fart1.djangobits.xyz/hero.png"
   }
 }
