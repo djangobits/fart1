@@ -12,6 +12,12 @@
     "imageUrl": "https://fart1.djangobits.xyz/og-image.png?text=fart1",
     "buttonTitle": "Open FART1",
     "splashImageUrl": "https://fart1.djangobits.xyz/splash.png?text=fart1",
-    "splashBackgroundColor": "#ffffff"
+    "splashBackgroundColor": "#ffffff",
+    "primaryCategory": "art-creativity",
+    "tags": [
+      "generative",
+      "art",
+      "toy"
+    ],
   }
 }
