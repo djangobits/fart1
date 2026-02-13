@@ -7,7 +7,7 @@
   "frame": {
     "version": "1",
     "name": "Farcaster Art Generator 1",
-    "iconUrl": "https://fart1.djangobits.xyz/icon.png?text=fart1",
+    "iconUrl": "https://fart1.djangobits.xyz/icon.png",
     "homeUrl": "https://fart1.djangobits.xyz",
     "imageUrl": "https://fart1.djangobits.xyz/og-image.png",
     "buttonTitle": "Open FART1",
