@@ -9,9 +9,9 @@
     "name": "Farcaster Art Generator 1",
     "iconUrl": "https://fart1.djangobits.xyz/icon.png?text=fart1",
     "homeUrl": "https://fart1.djangobits.xyz",
-    "imageUrl": "https://fart1.djangobits.xyz/og-image.png?text=fart1",
+    "imageUrl": "https://fart1.djangobits.xyz/og-image.png",
     "buttonTitle": "Open FART1",
-    "splashImageUrl": "https://fart1.djangobits.xyz/splash.png?text=fart1",
+    "splashImageUrl": "https://fart1.djangobits.xyz/splash.png",
     "splashBackgroundColor": "#ffffff",
     "primaryCategory": "art-creativity",
     "tags": [
